@@ -45,11 +45,12 @@ export const userSlice = createSlice({
       state.error = '';
     });
     builder.addCase(getAuth.fulfilled, (state, action) => {
-      state.user.user = action.payload;
+      const token = localStorage.getItem('token');
+      state.user = { user: action.payload, token };
       state.isLoading = false;
     });
     builder.addCase(getAuth.rejected, (state, action) => {
-      state.error = action.payload.message;
+      state.error = action.payload?.message;
       state.isLoading = false;
     });
 

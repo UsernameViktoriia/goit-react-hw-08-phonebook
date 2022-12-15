@@ -2,6 +2,7 @@ import React from 'react';
 import { ContactItem } from '../ContactItem/ContactItem';
 import { Contacts } from './ContactList.styled';
 import { useSelector } from 'react-redux';
+import Loader from 'components/Loader/Loader';
 
 export const ContactList = () => {
   const contacts = useSelector(state => state.contactsData.contacts);
@@ -16,11 +17,13 @@ export const ContactList = () => {
   };
   return (
     <Contacts>
-      {isLoading
-        ? 'Loading...'
-        : filterContacts().map(contact => (
-            <ContactItem key={contact.id} contact={contact} />
-          ))}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        filterContacts().map(contact => (
+          <ContactItem key={contact.id} contact={contact} />
+        ))
+      )}
     </Contacts>
   );
 };

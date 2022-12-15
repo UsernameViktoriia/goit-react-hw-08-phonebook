@@ -1,7 +1,14 @@
+import { Button } from 'components/Button/Button';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { signUp } from '../../redux/userSlice/operations';
+import {
+  FormStyle,
+  InputStyle,
+  LabelSpanStyle,
+  LabelWrapper,
+} from './SignUpForm.styled';
 
 function SignUpForm({ isLoading }) {
   const [formData, setFormData] = useState({
@@ -28,8 +35,6 @@ function SignUpForm({ isLoading }) {
       name: formData.name,
       password: formData.password,
     };
-    console.log('finalData: ', finalData);
-    // onAddProduct(productPart);
     dispatch(signUp(finalData));
     reset();
   };
@@ -43,42 +48,46 @@ function SignUpForm({ isLoading }) {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label className="input-group">
-        <span>Name:</span>
-        <input
-          type="text"
-          name="name"
-          onChange={onChange}
-          value={formData.name}
-          required
-        />
-      </label>
-      <label className="input-group">
-        <span>Email:</span>
-        <input
-          type="text"
-          name="email"
-          onChange={onChange}
-          value={formData.email}
-          required
-        />
-      </label>
-      <label className="input-group">
-        <span>Password:</span>
-        <input
-          type="text"
-          name="password"
-          onChange={onChange}
-          value={formData.password}
-          required
-        />
-      </label>
-
-      <button type="submit" disabled={isLoading}>
+    <FormStyle onSubmit={onSubmit}>
+      <LabelWrapper>
+        <label>
+          <LabelSpanStyle>Name:</LabelSpanStyle>
+          <InputStyle
+            type="text"
+            name="name"
+            onChange={onChange}
+            value={formData.name}
+            placeholder="Enter Your Username"
+            required
+          />
+        </label>
+        <label>
+          <LabelSpanStyle>Email:</LabelSpanStyle>
+          <InputStyle
+            type="text"
+            name="email"
+            onChange={onChange}
+            value={formData.email}
+            placeholder="Enter Your Email"
+            required
+          />
+        </label>
+        <label>
+          <LabelSpanStyle>Password:</LabelSpanStyle>
+          <InputStyle
+            type="password"
+            name="password"
+            onChange={onChange}
+            value={formData.password}
+            placeholder="Enter Your Password"
+            required
+          />
+        </label>
+      </LabelWrapper>
+      <Button type="submit" disabled={isLoading}>
         Sign up
-      </button>
-    </form>
+      </Button>
+    </FormStyle>
   );
 }
 

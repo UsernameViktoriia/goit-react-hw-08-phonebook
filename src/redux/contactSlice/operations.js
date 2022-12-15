@@ -26,17 +26,8 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, thunkAPI) => {
     try {
-      if (
-        !thunkAPI
-          .getState()
-          .contactsData.contacts.find(
-            cont => cont.name.toLowerCase() === contact.name.toLowerCase()
-          )
-      ) {
-        const response = await addContactRequest(contact);
-        return response;
-      }
-      alert(`${contact.name} is already in contacts`);
+      const response = await addContactRequest(contact);
+      return response;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }

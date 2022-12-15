@@ -5,48 +5,28 @@ import WithAuthRedirect from 'HOC/WithAuthRedirect';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/contactSlice/operations';
-// import { useDispatch, useSelector } from 'react-redux';
+import {
+  ContactsWrapper,
+  TitleContacts,
+  TitlePhonebook,
+} from './ContactsPage.styled';
 
 function ContactsPage() {
   const dispatch = useDispatch();
-  //   const { error, contacts, isLoading } = useSelector(
-  //     state => state.contactsData
-  //   );
 
-  //   useEffect(() => {
-  //     dispatch(getContacts());
-  //   }, [dispatch]);
-
-  //   const onDelete = contactId => {
-  //     dispatch(deleteContact(contactId));
-  //   };
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
-    <div>
-      <h1
-        style={{
-          fontSize: 40,
-          color: '#1251cc',
-        }}
-      >
-        Phonebook
-      </h1>
+    <ContactsWrapper>
+      <TitlePhonebook>Phonebook</TitlePhonebook>
       <ContactForm />
-      <h2
-        style={{
-          fontSize: 40,
-          color: '#1251cc',
-        }}
-      >
-        Contacts
-      </h2>
+      <TitleContacts>Contacts</TitleContacts>
       <Filter />
       <ContactList />
-    </div>
+    </ContactsWrapper>
   );
 }
 
-export default WithAuthRedirect(ContactsPage, '/sign-in');
+export default WithAuthRedirect(ContactsPage, '/login');

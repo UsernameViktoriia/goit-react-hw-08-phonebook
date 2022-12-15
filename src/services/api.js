@@ -15,7 +15,7 @@ const $privateHost = axios.create({
 });
 
 const authInterceptor = config => {
-  config.headers['Authorization'] = localStorage.getItem('token');
+  config.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
   return config;
 };
 

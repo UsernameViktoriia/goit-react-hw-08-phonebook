@@ -1,22 +1,23 @@
+import Notiflix from 'notiflix';
 import SignInForm from 'components/SignInForm/SignInForm';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { TitlePage } from './SignInPage.styled';
 
 function SignInPage() {
   const { isLoading, error, user } = useSelector(state => state.userData);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) return;
-    console.log(user);
-    navigate('/sign-in');
+    if (user?.token) navigate('/contacts');
   }, [user, navigate]);
 
   return (
     <div>
-      <h1>Sign In</h1>
-      {error.length > 0 && <p>Some error occured... With message {error}</p>}
+      <TitlePage>Login to your account</TitlePage>
+      {error.length > 0 &&
+        Notiflix.Notify.warning('Please enter valid information')}
       <SignInForm isLoading={isLoading} />
     </div>
   );

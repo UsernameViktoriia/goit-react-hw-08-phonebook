@@ -33,7 +33,7 @@ export const contactsSlice = createSlice({
     builder.addCase(addContact.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.contacts = [...state.contacts, action.payload];
+      state.contacts = [action.payload, ...state.contacts];
     });
     builder.addCase(addContact.rejected, (state, action) => {
       state.isLoading = false;

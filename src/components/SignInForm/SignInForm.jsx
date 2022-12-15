@@ -1,7 +1,14 @@
+import { Button } from 'components/Button/Button';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { signIn } from 'redux/userSlice/operations';
+import {
+  FormStyle,
+  InputStyle,
+  LabelSpanStyle,
+  LabelWrapper,
+} from './SignInForm.styled';
 
 function SignInForm({ isLoading }) {
   const [formData, setFormData] = useState({
@@ -39,32 +46,36 @@ function SignInForm({ isLoading }) {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <label className="input-group">
-        <span>Email:</span>
-        <input
-          type="text"
-          name="email"
-          onChange={onChange}
-          value={formData.email}
-          required
-        />
-      </label>
-      <label className="input-group">
-        <span>Password:</span>
-        <input
-          type="text"
-          name="password"
-          onChange={onChange}
-          value={formData.password}
-          required
-        />
-      </label>
+    <FormStyle onSubmit={onSubmit}>
+      <LabelWrapper>
+        <label>
+          <LabelSpanStyle>Email:</LabelSpanStyle>
+          <InputStyle
+            type="text"
+            name="email"
+            onChange={onChange}
+            value={formData.email}
+            placeholder="example@gmail.com"
+            required
+          />
+        </label>
+        <label>
+          <LabelSpanStyle>Password:</LabelSpanStyle>
+          <InputStyle
+            type="password"
+            name="password"
+            onChange={onChange}
+            value={formData.password}
+            placeholder="Enter Your Password"
+            required
+          />
+        </label>
+      </LabelWrapper>
 
-      <button type="submit" disabled={isLoading}>
-        Sign in
-      </button>
-    </form>
+      <Button type="submit" disabled={isLoading}>
+        Login
+      </Button>
+    </FormStyle>
   );
 }
 

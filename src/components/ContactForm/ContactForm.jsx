@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Label, Input, Button } from './ContactForm.styled';
-import { useDispatch } from 'react-redux';
+import Notiflix from 'notiflix';
+import { Form, Label, Input, LabelSpanStyle } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactSlice/operations';
+import { Button } from 'components/Button/Button';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const { contacts } = useSelector(state => state.contactsData);
   const dispatch = useDispatch();
 
   const onChange = e => {
@@ -22,17 +25,23 @@ export const ContactForm = () => {
   };
   const onSubmit = e => {
     e.preventDefault();
-
-    dispatch(addContact({ number, name }));
-    console.log(number, name);
-    setName('');
-    setNumber('');
+    if (
+      contacts.find(
+        cont => cont.name.toLowerCase().trim() === name.toLowerCase().trim()
+      )
+    ) {
+      Notiflix.Notify.info(`${name} is already in contacts`);
+    } else {
+      dispatch(addContact({ number, name }));
+      setName('');
+      setNumber('');
+    }
   };
 
   return (
     <Form onSubmit={onSubmit}>
       <Label className="input-group">
-        <span>Name</span>
+        <LabelSpanStyle>Name</LabelSpanStyle>
         <Input
           type="text"
           name="name"
@@ -44,7 +53,7 @@ export const ContactForm = () => {
         />
       </Label>
       <Label className="input-group">
-        <span>Number</span>
+        <LabelSpanStyle>Number</LabelSpanStyle>
         <Input
           type="tel"
           name="number"

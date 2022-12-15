@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Contacts = styled.ul`
   margin-top: 50px;
-  padding-bottom: 50px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   gap: 20px;
